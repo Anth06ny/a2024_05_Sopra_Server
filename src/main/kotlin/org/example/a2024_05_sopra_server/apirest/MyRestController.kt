@@ -1,5 +1,6 @@
 package org.example.a2024_05_sopra_server.apirest
 
+import jakarta.servlet.http.HttpServletResponse
 import org.example.a2024_05_sopra_server.StudentBean
 import org.springframework.web.bind.annotation.*
 
@@ -103,8 +104,10 @@ class MyRestController {
 
     //http://localhost:8080/test
     @GetMapping("/test")
-    fun testMethode(): String {
+    fun testMethode(response:HttpServletResponse): String {
         println("/test")
+
+        response.status = 612
 
         return "helloWorld"
     }
