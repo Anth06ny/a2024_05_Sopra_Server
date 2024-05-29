@@ -39,22 +39,22 @@ class MyRestController {
 
     //http://localhost:8080/boulangerie?nbCroissant=3&nbSandwich=1
     @GetMapping("/boulangerie")
-    fun boulangerie(nbCroissant:Int = 0, nbSandwich:Int = 0): String {
+    fun boulangerie(nbCroissant: Int = 0, nbSandwich: Int = 0): String {
         println("/boulangerie nbCroissant=$nbCroissant nbSandwich=$nbSandwich")
 
-        return "%.2f".format(0.95 *   nbCroissant +  nbSandwich *4).replace(",", "€")
+        return "%.2f".format(0.95 * nbCroissant + nbSandwich * 4).replace(",", "€")
     }
 
 
     //http://localhost:8080/max?p1=5&p2=6
     @GetMapping("/max")
-    fun max(p1:Int? = null, p2:Int? = null): Int? {
+    fun max(p1: Int? = null, p2: Int? = null): Int? {
         println("/max p1=$p1 p2=$p2")
 
-        if(p2 == null){
+        if (p2 == null) {
             return p1
         }
-        else if(p1 == null) {
+        else if (p1 == null) {
             return p2
         }
 
@@ -63,16 +63,16 @@ class MyRestController {
 
     //http://localhost:8080/max?p1=5&p2=6
     @GetMapping("/max2")
-    fun max2(p1:String? = null, p2:String? = null): Int? {
+    fun max2(p1: String? = null, p2: String? = null): Int? {
         println("/max p1=$p1 p2=$p2")
 
         var p1Int = p1?.toIntOrNull()
         var p2Int = p2?.toIntOrNull()
 
-        if(p2Int == null){
+        if (p2Int == null) {
             return p1Int
         }
-        else if(p1Int == null) {
+        else if (p1Int == null) {
             return p2Int
         }
 
@@ -80,12 +80,12 @@ class MyRestController {
     }
 
 
-
-
     //http://localhost:8080/createStudent?name=bob&notation=12
     @GetMapping("/createStudent")
-    fun createStudent(name: String = "",
-                      @RequestParam(value = "notation", defaultValue = "0") note: Int): StudentBean {
+    fun createStudent(
+        name: String = "",
+        @RequestParam(value = "notation", defaultValue = "0") note: Int
+    ): StudentBean {
         //name contiendra bob
         //note contiendra 12
         println("/createStudent : name=$name note=$note")
@@ -97,14 +97,14 @@ class MyRestController {
     @GetMapping("/getStudent")
     fun getStudent(): StudentBean {
         println("/getStudent")
-        var student =  StudentBean("toto", 12)
+        var student = StudentBean("toto", 12)
 
         return student
     }
 
     //http://localhost:8080/test
     @GetMapping("/test")
-    fun testMethode(response:HttpServletResponse): String {
+    fun testMethode(response: HttpServletResponse): String {
         println("/test")
 
         response.status = 612
