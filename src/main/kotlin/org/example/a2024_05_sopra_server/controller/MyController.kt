@@ -1,13 +1,58 @@
 package org.example.a2024_05_sopra_server.controller
 
+import jakarta.servlet.http.HttpSession
 import org.example.a2024_05_sopra_server.StudentBean
 import org.example.a2024_05_sopra_server.services.StudentService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.servlet.mvc.support.RedirectAttributes
 
 @Controller
 class MyController {
+
+    //http://localhost:8080/form
+    @GetMapping("/form") //Affiche le formulaire
+    fun form(studentBean: StudentBean, httpSession: HttpSession ): String {
+        println("/form studentBean=$studentBean sessionid=${httpSession.id}")
+        return "studentForm" //Lance studentForm.html
+    }
+
+    @PostMapping("/formSubmit") //traite le formulaire
+    fun formSubmit(studentBean: StudentBean, redirect:RedirectAttributes ) : String {
+        println("/formSubmit : $studentBean")
+        try {
+            if (studentBean.name.isBlank()) {
+                throw Exception("Nom manquant")
+            }
+            //Cas qui marche
+            redirect.addFlashAttribute("studentBean", studentBean)
+            return "redirect:formResult" // Redirection sur /formResult
+        } catch (e:Exception) {
+            e.printStackTrace()
+
+            //Cas d'erreur
+            redirect.addFlashAttribute("errorMessage", e.message)
+            redirect.addFlashAttribute("studentBean", studentBean)
+            return "redirect:form" //Redirige sur /form
+        }
+    }
+
+    @GetMapping("/formResult") //Affiche la page résultat
+    fun formResult(studentBean: StudentBean): String {
+           println("/formResult studentBean=$studentBean")
+
+        return "studentFormResult" //Lance studentForm.html
+    }
+
+    /* -------------------------------- */
+    // Formulaire
+    /* -------------------------------- */
+
+    /* -------------------------------- */
+    //
+    /* -------------------------------- */
 
     //http://localhost:8080/hello
     @GetMapping("/hello")
