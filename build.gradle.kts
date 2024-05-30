@@ -35,6 +35,15 @@ dependencies {
 //validator
     implementation("org.springframework.boot:spring-boot-starter-validation")
 
+    //JPA
+    //Permet à JAVA de se connecter à une base SQL
+    runtimeOnly("com.mysql:mysql-connector-j")
+
+//JPA Framework Java qui génère du SQL
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+//Pour utiliser avec Kotlin
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
 
 }
 

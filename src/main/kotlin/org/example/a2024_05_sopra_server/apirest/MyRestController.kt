@@ -2,11 +2,35 @@ package org.example.a2024_05_sopra_server.apirest
 
 import jakarta.servlet.http.HttpServletResponse
 import org.example.a2024_05_sopra_server.StudentBean
+import org.example.a2024_05_sopra_server.services.TeacherBean
+import org.example.a2024_05_sopra_server.services.TeacherService
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class MyRestController {
+class MyRestController(val teacherService: TeacherService) {
 
+    /* -------------------------------- */
+    // Exo JPA
+    /* -------------------------------- */
+
+    //http://localhost:8080/teacher/add?name=Tata&note=8
+    @GetMapping("/teacher/add")
+    fun addTeacher(
+        name: String = "",
+        note: Int
+    ): TeacherBean {
+        println("/addTeacher : name=$name note=$note")
+
+        return teacherService.createTeacher(name, note)
+    }
+
+    //http://localhost:8080/teachers
+    @GetMapping("/teachers")
+    fun teachers(): MutableList<TeacherBean> {
+        println("/teachers")
+
+        return teacherService.getAll()
+    }
 
     /* -------------------------------- */
     // POST
