@@ -10,6 +10,32 @@ import org.springframework.web.bind.annotation.*
 class MyRestController(val teacherService: TeacherService) {
 
     /* -------------------------------- */
+    // Spring Security
+    /* -------------------------------- */
+
+    //http://localhost:8080/testPublic
+    @GetMapping("/testPublic")
+    fun testPublic(): String {
+        println("/testPublic")
+        return "Hello public"
+    }
+
+    //http://localhost:8080/testPrivate
+    @GetMapping("/testPrivate")
+    fun testPrivate(): String {
+        println("/testPrivate")
+        return "Hello private"
+    }
+
+    //http://localhost:8080/testPrivateAdmin
+    @GetMapping("/testPrivateAdmin")
+    fun testPrivateAdmin(): String {
+        println("/testPrivateAdmin")
+        return "Hello private admin"
+    }
+
+
+    /* -------------------------------- */
     // Exo JPA
     /* -------------------------------- */
 
