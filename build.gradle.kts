@@ -45,14 +45,11 @@ dependencies {
 //Pour utiliser avec Kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
-    //Spring security
-    implementation("org.springframework.boot:spring-boot-starter-security")
-
-
-    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
-
     //WebSocket
     implementation("org.springframework.boot:spring-boot-starter-websocket")
+
+    //Spring Security
+    implementation("org.springframework.boot:spring-boot-starter-security")
 }
 
 tasks.withType<KotlinCompile> {

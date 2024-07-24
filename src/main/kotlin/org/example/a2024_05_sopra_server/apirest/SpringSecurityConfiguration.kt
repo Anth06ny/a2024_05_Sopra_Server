@@ -1,4 +1,4 @@
-package org.example.a2024_05_sopra_server
+package org.example.a2024_05_sopra_server.apirest
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -13,13 +13,14 @@ open class SpringSecurityConfig {
 
     @Bean
     open fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
-        return http.authorizeHttpRequests()
-            .requestMatchers("/testPrivate").authenticated()
-            .requestMatchers("/testPrivateAdmin").hasRole("ADMIN")
-            .anyRequest().permitAll()
-            .and().formLogin()
-            .and().oauth2Login()
-            .and().build();
+        http.authorizeHttpRequests { authorize ->
+            authorize.requestMatchers("/testPrivate").authenticated()
+            authorize.requestMatchers("/testPrivateAdmin").hasRole("ADMIN")
+                .anyRequest().permitAll()
+        }
+            .httpBasic { }
+            .formLogin { }
+        return http.build()
     }
 
     @Autowired
@@ -30,11 +31,12 @@ open class SpringSecurityConfig {
         auth.inMemoryAuthentication()
             .passwordEncoder(encoder)
             .withUser("aaa")
-            .password(encoder.encode("aaa"))
+            .password(encoder.encode("bbb"))
             .roles("USER")
             .and()
             .withUser("Admin")
             .password(encoder.encode("Admin"))
             .roles("ADMIN")
     }
+
 }
