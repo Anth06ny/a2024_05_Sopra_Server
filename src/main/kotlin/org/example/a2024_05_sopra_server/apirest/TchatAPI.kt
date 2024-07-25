@@ -32,13 +32,13 @@ class TchatAPI(val messageService: MessageService) {
     //Json Attendu : {"pseudo": "toto","message": "hello""}
     @PostMapping("/saveMessage")
     fun saveMessage(
-        @Valid @RequestBody message: MessageBean,
-        httpServletResponse: HttpServletResponse
+        @RequestBody message: MessageBean,
+        //httpServletResponse: HttpServletResponse
     ) {
         println("/saveMessage : $message")
         messageService.createMessage(message)
 
-        httpServletResponse.status = HttpStatus.CREATED.value()
+        //httpServletResponse.status = HttpStatus.CREATED.value()
     }
 
 

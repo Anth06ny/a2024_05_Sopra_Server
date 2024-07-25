@@ -16,6 +16,9 @@ open class SpringSecurityConfig {
         http.authorizeHttpRequests { authorize ->
             authorize.requestMatchers("/testPrivate").authenticated()
             authorize.requestMatchers("/testPrivateAdmin").hasRole("ADMIN")
+            authorize.requestMatchers("/ws/**").authenticated()
+//            authorize.requestMatchers("/tchat/saveMessage").authenticated()
+//            authorize.requestMatchers("/tchat/allMessages").authenticated()
                 .anyRequest().permitAll()
         }
             .httpBasic { }
@@ -24,7 +27,7 @@ open class SpringSecurityConfig {
     }
 
     @Autowired
-    open fun configureGlobal(auth : AuthenticationManagerBuilder) {
+    open fun configureGlobal(auth: AuthenticationManagerBuilder) {
         val encoder = BCryptPasswordEncoder()
 
         //Créer des utilisateurs fixes
